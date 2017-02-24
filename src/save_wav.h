@@ -15,7 +15,6 @@
 #include "settings.h"
 
 void save_wav(std::vector<std::vector<int> >& data, std::string filename, unsigned int rate);
-
 template <typename Word>
   std::ostream& write_word( std::ostream& outs, Word value, unsigned size = sizeof( Word ) ) {
     for (; size; --size, value >>= 8)

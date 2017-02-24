@@ -13,7 +13,7 @@ void save_wav( std::vector<std::vector<int> >& data, std::string filename, unsig
   f << "RIFF----WAVEfmt ";     // (chunk size to be filled in later)
   write_word( f,     16, 4 );  // no extension data
   write_word( f,      1, 2 );  // PCM - integer samples
-  write_word( f,      2, 2 );  // two channels (stereo file)
+  write_word( f,      data[0].size(), 2 );  // read the number of channels from the size of the data (it should be a number_of_samples-element vector of number_of_channels-element vectors)
   write_word( f,  4000, 4 );   // samples per second (Hz)
   write_word( f,  16000, 4 );  // (Sample Rate * BitsPerSample * Channels) / 8
   write_word( f,      4, 2 );  // data block size (size of two integer samples, one for each channel, in bytes)
@@ -23,8 +23,8 @@ void save_wav( std::vector<std::vector<int> >& data, std::string filename, unsig
   f << "data----";  // (chunk size to be filled in later)
 
   // write data
-  for (auto& pair : data)
-    for (auto& value : pair)
+  for (auto& all_channels : data)
+    for (auto& value : all_channels)
       write_word( f, value, 2 );
   
   // (We'll need the final file size to fix the chunk sizes above)

@@ -27,7 +27,7 @@
 #define ARRAY_SIZE(a) sizeof(a) / sizeof((a)[0])
 
 int read_a_cycle(int fd, int line, int bil); 
-std::vector<std::vector<int> > read_a_chunk();
+std::vector<std::vector<int> > read_a_chunk(int number_of_channels, int duration_in_seconds);
 int read_a_cycle_and_return(int channel);
 
 class wait_timer {

@@ -9,8 +9,8 @@
 #define SETTINGS_H
 
 const unsigned int SAMPLE_RATE {4000};
-const unsigned int BLOCK_SIZE_IN_SECONDS {2};
-const unsigned int NUMBER_OF_CHANNELS_TO_READ {2}; // the number of eeg channels to read
+// const unsigned int BLOCK_SIZE_IN_SECONDS {2};
+// const unsigned int NUMBER_OF_CHANNELS_TO_READ {2}; // the number of eeg channels to read
 const unsigned int CHANNEL_OFFSET {1}; // first channel is for the POT so eeg channels start at the 2d
 
 #endif

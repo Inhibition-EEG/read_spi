@@ -38,13 +38,13 @@ int read_a_cycle(int fd, int line, int bil) {
 }
 
 
-std::vector<std::vector<int> > read_a_chunk() {
+std::vector<std::vector<int> > read_a_chunk(int number_of_channels, int duration_in_seconds) {
 
     int fd = open(DEVICE, O_RDWR);
     if (fd < 0) 
       throw std::runtime_error("didn't open device");
     
-    constexpr unsigned int times = SAMPLE_RATE * BLOCK_SIZE_IN_SECONDS;
+    const unsigned int times = SAMPLE_RATE * duration_in_seconds;
     constexpr unsigned int wait = 1000000 / SAMPLE_RATE;
 
     std::vector<std::vector<int> > data;
@@ -52,8 +52,8 @@ std::vector<std::vector<int> > read_a_chunk() {
     
     for (int j=0; j<times; j++) {
       std::vector<int> pair;
-      for(int i=0; i<NUMBER_OF_CHANNELS_TO_READ; i++) 
-	pair.emplace_back(read_a_cycle(fd,i+CHANNEL_OFFSET,0)); // eeg is on channels 2 and 3
+      for(int i=0; i<number_of_channels; i++) 
+	pair.emplace_back(read_a_cycle(fd,i+CHANNEL_OFFSET,0)); // first channel is used for the potentiometer
       data.emplace_back(pair);
       wt.wait();
     }
